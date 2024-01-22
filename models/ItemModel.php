@@ -8,7 +8,7 @@ class ItemModel
 
     // Atributos del objeto item que coinciden con los campos de la tabla ITEMS
     private $id;
-    private $item;
+    private $Item;
 
     // Constructor que utiliza el patrón Singleton para tener una única instancia de la conexión a BD
     public function __construct()
@@ -29,11 +29,11 @@ class ItemModel
 
     public function getItem()
     {
-        return $this->item;
+        return $this->Item;
     }
-    public function setItem($item)
+    public function setItem($Item)
     {
-        return $this->item = $item;
+        return $this->Item = $Item;
     }
 
     // Método para obtener todos los registros de la tabla ITEMS
@@ -67,7 +67,7 @@ class ItemModel
     // Si tiene ya código actualiza el registro y si no tiene lo inserta
     public function save()
     {
-        if (!isset($this->codigo)) {
+        if (!isset($this->id)) {
             $consulta = $this->db->prepare('INSERT INTO Items ( item ) values ( ? )');
             $consulta->bindParam(1, $this->item);
             $consulta->execute();
