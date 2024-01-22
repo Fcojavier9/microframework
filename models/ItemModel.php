@@ -7,7 +7,7 @@ class ItemModel
     protected $db;
 
     // Atributos del objeto item que coinciden con los campos de la tabla ITEMS
-    private $codigo;
+    private $id;
     private $item;
 
     // Constructor que utiliza el patrón Singleton para tener una única instancia de la conexión a BD
@@ -20,11 +20,11 @@ class ItemModel
     // Getters y Setters
     public function getCodigo()
     {
-        return $this->codigo;
+        return $this->id;
     }
-    public function setCodigo($codigo)
+    public function setCodigo($id)
     {
-        return $this->codigo = $codigo;
+        return $this->id = $id;
     }
 
     public function getItem()
@@ -51,10 +51,10 @@ class ItemModel
 
 
     // Método que devuelve (si existe en BD) un objeto ItemModel con un código determinado
-    public function getById($codigo)
+    public function getById($id)
     {
         $gsent = $this->db->prepare('SELECT * FROM Items where id = ?');
-        $gsent->bindParam(1, $codigo);
+        $gsent->bindParam(1, $id);
         $gsent->execute();
 
         $gsent->setFetchMode(PDO::FETCH_CLASS, "ItemModel");
@@ -74,7 +74,7 @@ class ItemModel
         } else {
             $consulta = $this->db->prepare('UPDATE Items SET item = ? WHERE id =  ? ');
             $consulta->bindParam(1, $this->item);
-            $consulta->bindParam(2, $this->codigo);
+            $consulta->bindParam(2, $this->id);
             $consulta->execute();
         }
     }
@@ -83,7 +83,7 @@ class ItemModel
     public function delete()
     {
         $consulta = $this->db->prepare('DELETE FROM  Items WHERE id =  ?');
-        $consulta->bindParam(1, $this->codigo);
+        $consulta->bindParam(1, $this->id);
         $consulta->execute();
     }
 }
