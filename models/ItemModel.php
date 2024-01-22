@@ -41,7 +41,7 @@ class ItemModel
     public function getAll()
     {
         //realizamos la consulta de todos los items
-        $consulta = $this->db->prepare('SELECT * FROM items');
+        $consulta = $this->db->prepare('SELECT * FROM Items');
         $consulta->execute();
         $resultado = $consulta->fetchAll(PDO::FETCH_CLASS, "ItemModel");
 
@@ -53,7 +53,7 @@ class ItemModel
     // Método que devuelve (si existe en BD) un objeto ItemModel con un código determinado
     public function getById($codigo)
     {
-        $gsent = $this->db->prepare('SELECT * FROM items where codigo = ?');
+        $gsent = $this->db->prepare('SELECT * FROM Items where codigo = ?');
         $gsent->bindParam(1, $codigo);
         $gsent->execute();
 
@@ -68,11 +68,11 @@ class ItemModel
     public function save()
     {
         if (!isset($this->codigo)) {
-            $consulta = $this->db->prepare('INSERT INTO items ( item ) values ( ? )');
+            $consulta = $this->db->prepare('INSERT INTO Items ( item ) values ( ? )');
             $consulta->bindParam(1, $this->item);
             $consulta->execute();
         } else {
-            $consulta = $this->db->prepare('UPDATE items SET item = ? WHERE codigo =  ? ');
+            $consulta = $this->db->prepare('UPDATE Items SET item = ? WHERE codigo =  ? ');
             $consulta->bindParam(1, $this->item);
             $consulta->bindParam(2, $this->codigo);
             $consulta->execute();
@@ -82,7 +82,7 @@ class ItemModel
     // Método que elimina el ItemModel de la BD
     public function delete()
     {
-        $consulta = $this->db->prepare('DELETE FROM  items WHERE codigo =  ?');
+        $consulta = $this->db->prepare('DELETE FROM  Items WHERE codigo =  ?');
         $consulta->bindParam(1, $this->codigo);
         $consulta->execute();
     }
