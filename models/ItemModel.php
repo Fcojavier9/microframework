@@ -53,7 +53,7 @@ class ItemModel
     // Método que devuelve (si existe en BD) un objeto ItemModel con un código determinado
     public function getById($codigo)
     {
-        $gsent = $this->db->prepare('SELECT * FROM Items where codigo = ?');
+        $gsent = $this->db->prepare('SELECT * FROM Items where id = ?');
         $gsent->bindParam(1, $codigo);
         $gsent->execute();
 
@@ -72,7 +72,7 @@ class ItemModel
             $consulta->bindParam(1, $this->item);
             $consulta->execute();
         } else {
-            $consulta = $this->db->prepare('UPDATE Items SET item = ? WHERE codigo =  ? ');
+            $consulta = $this->db->prepare('UPDATE Items SET item = ? WHERE id =  ? ');
             $consulta->bindParam(1, $this->item);
             $consulta->bindParam(2, $this->codigo);
             $consulta->execute();
@@ -82,7 +82,7 @@ class ItemModel
     // Método que elimina el ItemModel de la BD
     public function delete()
     {
-        $consulta = $this->db->prepare('DELETE FROM  Items WHERE codigo =  ?');
+        $consulta = $this->db->prepare('DELETE FROM  Items WHERE id =  ?');
         $consulta->bindParam(1, $this->codigo);
         $consulta->execute();
     }
